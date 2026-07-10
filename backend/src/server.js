@@ -1,6 +1,7 @@
 import express from "express"
 import path from "path";
 import { ENV } from "./lib/env.js";
+import { connectDB } from "./lib/db.js";
 
 
 const app = express();
@@ -28,6 +29,22 @@ app.get("/{*any}", (req, res) => {
 
 }
 
-app.listen(ENV.PORT, () => {
+
+
+const startServer = async () => {
+  try {
+    await connectDB();  
+    app.listen(ENV.PORT, () => {
   console.log("server is running on port ", ENV.PORT);
-});
+  
+  });
+  } 
+  catch (error) {
+    console.error("❌Connection failed due to ", error);
+    process.exit(1); // Exit the process with an error code 0=sucess, 1=error
+  }
+};
+
+startServer();
+
+    
