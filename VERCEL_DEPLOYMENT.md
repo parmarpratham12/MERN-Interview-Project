@@ -8,7 +8,7 @@ This guide contains the solution to run the Express backend on Vercel as a Serve
 
 The following files have already been created at your project root:
 * **`vercel.json`**: Sets up routing for `/api/*` to the serverless function.
-* **`api/index.js`**: Serverless function entry point that loads the Express server.
+* **`api/index.mjs`**: Serverless function entry point that loads the Express server.
 
 ---
 
