@@ -1,15 +1,16 @@
-import express from "express"
+import express from "express";
 import path from "path";
+import { fileURLToPath } from "url";
 import { ENV } from "./lib/env.js";
 import { connectDB } from "./lib/db.js";
 import cors from "cors";
 import { serve } from "inngest/express";  
 import { inngest,functions } from "./lib/inngest.js";
 
-
 const app = express();
 
-const __dirname = path.resolve();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // middleware
 
@@ -29,31 +30,28 @@ app.get("/books", (req, res) => {
 });
 
 
-// ready for delpoyment
-
+// ready for deployment
 if (ENV.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
-app.get("/{*any}", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend","dist","index.html"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../../frontend", "dist", "index.html"));
   });
-
 }
 
-const startServer = async () => {
-  try {
-    await connectDB();  
-    app.listen(ENV.PORT, () => {
-  console.log("server is running on port ", ENV.PORT);
-  
-  });
-  } 
-  catch (error) {
-    console.error("❌Connection failed due to ", error);
-    process.exit(1); // Exit the process with an error code 0=sucess, 1=error
-  }
-};
+// Database connection
+connectDB().catch((err) => {
+  console.error("❌ Database connection failed on startup:", err);
+});
 
-startServer();
+// Start server locally if not on Vercel
+if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
+  const PORT = ENV.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+export default app;
 
     
