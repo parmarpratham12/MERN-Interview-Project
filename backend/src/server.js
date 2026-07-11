@@ -4,7 +4,9 @@ import { ENV } from "./lib/env.js";
 import { connectDB } from "./lib/db.js";
 import cors from "cors";
 import { serve } from "inngest/express";  
+import { clerkMiddleware } from '@clerk/express';
 import { inngest,functions } from "./lib/inngest.js";
+import { protectRoute } from "./middleware/protectRoute.js";
 
 
 const app = express();
@@ -15,10 +17,11 @@ const __dirname = path.resolve();
 
 app.use(express.json())
 
-//credentials:true means server allows a browser to include cookies on req
-app.use(cors({ origin:ENV.CLIENT_URL,credentials:true }));
 
-app.use("/api/inngest",serve({client:inngest , functions }))
+app.use(cors({ origin:ENV.CLIENT_URL,credentials:true })); //credentials:true means server allows a browser to include cookies on req
+
+app.use("/api/inngest",serve({client:inngest , functions }));
+app.use(clerkMiddleware()); // this adds auth field to request object : req.auth()
 
 app.get("/health", (req, res) => {
   res.status(200).json({ message: "success from api" });
@@ -26,6 +29,11 @@ app.get("/health", (req, res) => {
 
 app.get("/books", (req, res) => {
   res.status(200).json({ message: "this is a book endpoint" });
+});
+
+// when you pass an array of middleware to express , it automatically flattens and executes them sequentially , one by one
+app.get("/video-call",protectRoute, (req, res) => {
+  res.status(200).json({ message: "this is a protected endpoint" });
 });
 
 
