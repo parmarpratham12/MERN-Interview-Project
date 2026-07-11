@@ -28,6 +28,9 @@ app.get("/books", (req, res) => {
   res.status(200).json({ message: "this is a book endpoint" });
 });
 
+ 
+
+
 // ready for deployment
 if (ENV.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../../frontend/dist")));
@@ -39,6 +42,7 @@ if (ENV.NODE_ENV === "production") {
 
 // Start server locally if not on Vercel
 if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
+
   // Connect to DB locally on startup
   connectDB().catch((err) => {
     console.error("❌ Database connection failed on startup:", err);

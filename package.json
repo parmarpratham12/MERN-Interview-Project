@@ -15,6 +15,9 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "engines": {
+    "node": "20.x"
+  },
   "bugs": {
     "url": "https://github.com/parmarpratham12/MERN-Interview-Project/issues"
   },
