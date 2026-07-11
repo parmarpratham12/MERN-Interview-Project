@@ -40,22 +40,22 @@ app.get("/{*any}", (req, res) => {
 
 }
 
-const startServer = async () => {
-  try {
+// const startServer = async () => {
+//   try {
     await connectDB();  
     
-      app.listen(ENV.PORT, () => {
-        console.log("server is running on port ", ENV.PORT);
-      })
-    }
+//       app.listen(ENV.PORT, () => {
+//         console.log("server is running on port ", ENV.PORT);
+//       })
+//     }
   
-  catch (error) {
-    console.error("❌Connection failed due to ", error);
-    process.exit(1); // Exit the process with an error code 0=sucess, 1=error
-  }
-};
+//   catch (error) {
+//     console.error("❌Connection failed due to ", error);
+//     process.exit(1); // Exit the process with an error code 0=sucess, 1=error
+//   }
+// };
 
-startServer();
+// startServer();
 
 export default app;
 
