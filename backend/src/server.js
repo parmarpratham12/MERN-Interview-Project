@@ -43,10 +43,13 @@ app.get("/{*any}", (req, res) => {
 const startServer = async () => {
   try {
     await connectDB();  
-    app.listen(ENV.PORT, () => {
-  console.log("server is running on port ", ENV.PORT);
-  
-  });
+    if (!process.env.VERCEL) {
+      app.listen(ENV.PORT, () => {
+        console.log("server is running on port ", ENV.PORT);
+      });
+    } else {
+      console.log("Running in serverless/Vercel environment, skipping app.listen()");
+    }
   } 
   catch (error) {
     console.error("❌Connection failed due to ", error);
@@ -55,5 +58,7 @@ const startServer = async () => {
 };
 
 startServer();
+
+export default app;
 
     
