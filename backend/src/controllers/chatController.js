@@ -1,7 +1,7 @@
 import { chatClient } from "../lib/stream.js";
 
 
-export async function getStremToken(req,res){
+export async function getStreamToken(req,res){
 
 try {
     // use clerkId for Stream (not mongodb _id) => it should match the id we have i the stream
@@ -24,7 +24,6 @@ console.log("Error in getStreamToken controller :" , error.message);
 res.status(500).json({ message: "Internal Server Error"});
 
 }
-
 
 
 }
