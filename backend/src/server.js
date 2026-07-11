@@ -34,17 +34,11 @@ app.get("/books", (req, res) => {
 if (ENV.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
-<<<<<<< HEAD
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../../frontend", "dist", "index.html"));
-=======
-  app.get("/{*any}", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
->>>>>>> c25f73b8e0caf2c263c293442aa2803cf6873efa
   });
 }
 
-<<<<<<< HEAD
 // Database connection
 connectDB().catch((err) => {
   console.error("❌ Database connection failed on startup:", err);
@@ -57,24 +51,5 @@ if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
     console.log(`Server is running on port ${PORT}`);
   });
 }
-=======
-// const startServer = async () => {
-//   try {
-await connectDB();
-
-//       app.listen(ENV.PORT, () => {
-//         console.log("server is running on port ", ENV.PORT);
-//       })
-//     }
-
-//   catch (error) {
-//     console.error("❌Connection failed due to ", error);
-//     process.exit(1); // Exit the process with an error code 0=sucess, 1=error
-//   }
-// };
-
-// startServer();
->>>>>>> c25f73b8e0caf2c263c293442aa2803cf6873efa
 
 export default app;
-
