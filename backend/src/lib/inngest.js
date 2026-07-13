@@ -1,8 +1,9 @@
 import { Inngest } from "inngest";
 import { connectDB } from "./db.js";
 import User from "../models/User.js";
+import ENV from "./env.js";
 
-export const inngest = new Inngest({ id:"Pratham-Remote-Interview"})
+export const inngest = new Inngest({ id:"Pratham-Remote-Interview" ,  eventKey: ENV.INNGEST_EVENT_KEY})
 
 const syncUser = inngest.createFunction(
     
@@ -10,21 +11,23 @@ const syncUser = inngest.createFunction(
        {event:"clerk/user.created"},
        async ({event}) => {
 
+        try {
         await connectDB ()
         const { id ,email_addresses,first_name,last_name,image_url} = event.data
 
-            
         const newUser = {
             clerkId:id,
-            email:email_addresses[0]?.email_addresses,
+            email:email_addresses[0]?.email_address,
             name:`${first_name ||""} ${last_name || ""}`,
             profileImage:image_url
-    
         }
 
         await User.create(newUser)
+        } catch (error) {
+            console.log("error from the sync user")
+            throw error   
+        }
        }
- 
 )
 // todo : something else
 
