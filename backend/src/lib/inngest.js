@@ -1,7 +1,7 @@
 import { Inngest } from "inngest";
 import { connectDB } from "./db.js";
 import User from "../models/User.js";
-import ENV from "./env.js";
+import {ENV} from "./env.js";
 
 export const inngest = new Inngest({ id:"Pratham-Remote-Interview" ,  eventKey: ENV.INNGEST_EVENT_KEY})
 
