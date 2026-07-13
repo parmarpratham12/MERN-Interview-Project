@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build" : " npm install --prefix frontend && npm install --prefix backend && npm run build --prefix frontend",
+    "build": " npm install --prefix frontend && npm install --prefix backend && npm run build --prefix frontend",
     "start": "npm run start --prefix backend"
   },
   "repository": {
@@ -14,9 +14,22 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "bugs": {
     "url": "https://github.com/parmarpratham12/MERN-Interview-Project/issues"
   },
-  "homepage": "https://github.com/parmarpratham12/MERN-Interview-Project#readme"
+  "homepage": "https://github.com/parmarpratham12/MERN-Interview-Project#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "inngest": "^3.44.3",
+    "mongoose": "^8.19.1"
+  },
+  "devDependencies": {
+    "@vercel/node": "^5.8.23"
+  }
 }
