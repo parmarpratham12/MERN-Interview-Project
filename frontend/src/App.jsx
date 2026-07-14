@@ -1,39 +1,32 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 import { SignedIn, SignedOut, SignInButton , SignOutButton, UserButton } from '@clerk/clerk-react'
+import { Routes,Route, Navigate } from 'react-router';
+import HomePage from './pages/HomePage.jsx';
+import ProblemsPage from './pages/ProblemsPage.jsx';
+import { useUser } from '@clerk/clerk-react';
+import {Toaster} from 'react-hot-toast'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const {issignedIn} = useUser()
 
   return (
+
     <>
-    <h1> Welcome to the app</h1>
+    <Routes>
+    
 
-    <SignedOut>
-
-      <SignInButton mode="modal">
-        <button>
-          
-          LOGIN
-
-        </button>
-      </SignInButton>
-
-    </SignedOut>
-
-      <SignedIn>
-
-        <SignOutButton/>
-
-      </SignedIn>
-      
-      <UserButton/>
+    <Route path = "/" element = {<HomePage/>}/>
+    <Route path = "/problems" element = {issignedIn ? <ProblemsPage/> : <Navigate to = {"/"}/>}/>
 
       
-    </>
+    </Routes>
+    <Toaster  toastOptions={{duration:3000}}/>
+      </>
+    
   );
 }
 
 export default App;
+
+// tw ,daisyui, react-router, react-hot-toast 
+// todo : react query aka tanstack query , axios
