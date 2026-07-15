@@ -1,6 +1,6 @@
 import { Link } from "react-router"
 import{SparklesIcon, Zap ,Code2Icon,UsersIcon , ArrowRightIcon,CheckIcon, VideoIcon} from "lucide-react"
-import {SignInButton} from "@clerk/clerk-react"
+import {SignInButton ,SignOutButton} from "@clerk/clerk-react"
 import { ZapIcon } from "lucide-react"
 
 
@@ -171,6 +171,19 @@ Powerful features built for seamless coding interviews and developer collaborati
       Share your screen, discuss solution, and learn from other in real-time
       </p>
     </div>
+  </div>
+  <div>
+    
+
+<SignOutButton mode="modal">
+    <button className="group px-3 py-3 bg-gradient-to-r from-primary to-secondary rounded-xl text-white front-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 flex items-center gap-2">
+      <span>
+        Get over
+      </span>
+      <ArrowRightIcon  className="size-4 group-hover:translate-x-0.5 transition-transform "/>
+    </button>
+  </SignOutButton>
+
   </div>
  </div>
   </div>
