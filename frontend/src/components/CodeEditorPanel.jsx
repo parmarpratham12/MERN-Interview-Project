@@ -9,7 +9,7 @@ function CodeEditorPanel({
                 isRunning,
                 onLanguageChange,
                 onCodeChange,
-                onRunCOde
+                onRunCode
 }) {
   return (
     <div className='h-full bg-base-300 flex flex-col'>
@@ -26,13 +26,14 @@ function CodeEditorPanel({
                 onChange={onLanguageChange}
                 >
                     {Object.entries(LANGUAGE_CONFIG).map(([Key,lang])=> (
-                        <option key={Key}>
+                        <option key={Key} value={Key}>
+                           
                             {lang.name}
                         </option>
                     ))}
                 </select>
             </div>
-            <button className='btn btn-primary btn-sm gap-2 disabled={isRunning} onClick={onRunCode}'>
+            <button className='btn btn-primary btn-sm gap-2' disabled={isRunning} onClick={onRunCode}>
                 {isRunning ? (
                     <>
                     <Loader2Icon className='size-4 animate-spin'/>
@@ -52,7 +53,7 @@ function CodeEditorPanel({
             onChange={onCodeChange}
             theme='vs-dark'
             options={{
-                frontSize:16,
+                fontSize:16,
                 lineNumbers:"on",
                 scrollBeyondLastLine:false,
                 automaticLayout:true,

@@ -5,7 +5,7 @@ import Session from "../models/Session.js"
 
 export async function createSession(req,res){
 try {
-    const {problem,difficulty} = res.body
+    const {problem,difficulty} = req.body
     const userId = req.user._id
     const clerkId = req.user.clerkId
 
@@ -27,7 +27,7 @@ if(!problem || !difficulty){
         }
     });
     // chat meassaging
-    const channel = chatClient.channel("message",callId,{
+    const channel = chatClient.channel("messaging",callId,{
         name : `${problem} Session`,
         created_by_id : clerkId,
         members: [clerkId]
@@ -38,7 +38,7 @@ res.status(201).json({session})
 
 } catch (error) {
     console.log("Error in createSession controller:",error.message);
-    res.status(500).json({ meassge : "Internal Server Error"}) ;
+    res.status(500).json({ message : "Internal Server Error"}) ;
     
 }
 
@@ -48,13 +48,13 @@ export async function getActiveSession(_,res){
     try {
        const sessions = await Session.find({status:"active"})
        .populate("host","name profileImage email clerkId") // populate method can retrive host name from host id and this is a functionality of mongodb
-       .sort({createdAT:-1})
+       .sort({createdAt:-1})
        .limit(20);
 
-       res.status(200).json({session})
+       res.status(200).json({sessions})
     } catch (error) {
         console.log("Error in GetActiveSession Controller",error.message);
-         res.status(500).json({ meassge : "Internal Server Error"}) ;
+         res.status(500).json({ message : "Internal Server Error"}) ;
     }
 }
 
@@ -62,16 +62,16 @@ export async function getMyRecentSession(req,res){
     try {
         const userId = req.user._id
         // get sessions where user is either host or participant 
-       const sesissons = await Session.find({
+       const sessions = await Session.find({
             status:"completed",
             $or: [{host : userId } , { participant:userId}]
-        }).sort({createdAT:-1})
+        }).sort({createdAt:-1})
         .limit(20);
-        res.status(200).json({sesissons})
+        res.status(200).json({sessions})
 
     } catch (error) {
         console.log("Error in getMyRecentSessions controller",error.message);
-         res.status(500).json({ meassge : "Internal Server Error"});
+         res.status(500).json({ message : "Internal Server Error"});
         
     }
 }
@@ -90,7 +90,7 @@ export async function getSessionById(req,res){
 
     } catch (error) {
         console.log("Error in getSessionById controller", error.message);
-        res.status(500).json({ meassge : "Internal Server Error"});
+        res.status(500).json({ message : "Internal Server Error"});
         
     }
 }
@@ -127,7 +127,7 @@ export async function joinSession(req,res){
     } catch (error) {
 
         console.log("Error in joinSession controller", error.message);
-        res.status(500).json({ meassge : "Internal Server Error"});
+        res.status(500).json({ message : "Internal Server Error"});
         
     }
 
@@ -167,11 +167,11 @@ export async function endSession(req,res){
 
 
 
-        res.status(200).json({session,message:" Session is ended sucessfully"})
+        res.status(200).json({session,message:" Session is ended successfully"})
 
     } catch (error) {
 
         console.log("Error in endSession controller", error.message);
-        res.status(500).json({ meassge : "Internal Server Error"});
+        res.status(500).json({  message : "Internal Server Error"});
     }
 }

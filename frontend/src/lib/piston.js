@@ -1,12 +1,11 @@
 // piston api is a service for code excution
 
-import { version } from "mongoose"
 
 const PISTON_API ="https://emkc.org/api/v2/piston"
 
 const LANGUAGE_VERSIONS ={
     javascript: {language:"javascript", version:"18.15.0"},
-    pyhton: {language:"pyhton", version:"3.10.0"},
+    python: {language:"python", version:"3.10.0"},
     java: {language:"java", version:"15.0.2"}
 }
 
@@ -30,7 +29,7 @@ export async function executeCode(language,code) {
         const response = await fetch(`${PISTON_API}/execute`,{
 
             method:"POST",
-            header:{
+            headers:{
                 "Content-Type":"application/json"
             },
             body: JSON.stringify({
@@ -81,7 +80,7 @@ function getFileExtension(language){
     const extension ={
         javascript : "js",
         python:"py",
-        java:"java",jj
+        java:"java"
     };
-    return extensions[language] || "txt";
+    return extension[language] || "txt";
 }

@@ -6,7 +6,7 @@ function ProblrmDescription({problem,currentProblemId,onProblemChange,allProblem
   
   
     return (
-    <div className='h-full over-y-auto bg-base-200'>
+    <div className='h-full overflow-y-auto bg-base-200'>
 
     {/* HEADER SECTION  */}
     <div className="p-6 bg-base-100 border-b border-base-300">
@@ -19,11 +19,11 @@ function ProblrmDescription({problem,currentProblemId,onProblemChange,allProblem
            <div className='mt-4'>
             <select
             className='select select-sm w-full'
-            values={currentProblemId}
+            value={currentProblemId}
             onChange={(e)=> onProblemChange(e.target.value)}
             >
                 {allProblem.map((p)=>(
-                    <option key={p.id}>
+                    <option key={p.id} value={p.id}>
                         {p.title} - {p.difficulty}
                     </option>
                 ))}

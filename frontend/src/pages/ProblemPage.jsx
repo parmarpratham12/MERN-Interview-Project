@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router'
 import { PROBLEMS } from '../data/problem.js';
 import { Panel , PanelGroup, PanelResizeHandle} from "react-resizable-panels";
 import Navbar from '../components/Navbar.jsx';
-import ProblrmDescription from '../components/ProblrmDescription.jsx';
+import ProblrmDescription from '../components/ProblemDescription.jsx';
 import CodeEditorPanel from "../components/CodeEditorPanel.jsx"
 import OutputPanel from '../components/OutputPanel.jsx';
 import { executeCode } from '../lib/piston.js';
@@ -17,7 +17,7 @@ const navigate = useNavigate()
 
 const [currentProblemId, setCurrentProblemId] = useState("two-sum")
 const [selectedLanguage, setSelectedLanguage] = useState("javascript")
-const [code, setCode] = useState("(PROBLRMS[currentProblemId].starterCode.javascript")
+const [code, setCode] = useState(PROBLEMS[currentProblemId].starterCode.javascript)
 const [output,setOutput] =useState(null)
 const [isRunning,setIsRunning] =useState(false)
 
@@ -77,8 +77,8 @@ const triggerConfetti = () => {
   };
 
   const checkIfTestsPassed = (actualOutput,expectedOutput) => {
-  const normalizedActual = normalizedOutut(actualOutput);
-  const normalizedExpected = normalizedOutut(expectedOutput);
+  const normalizedActual = normalizeOutput(actualOutput);
+  const normalizedExpected = normalizeOutput(expectedOutput);
     
     return normalizedActual === normalizedExpected 
 }
@@ -99,7 +99,7 @@ if(result.success){
 
    if(testsPassed){
     triggerConfetti();
-    toast.sucsess("All tests passed! Great job!")
+    toast.success("All tests passed! Great job!")
    }
    else{
     toast.error("Tests failed. Check your output!")
@@ -147,7 +147,7 @@ if(result.success){
                 isRunning={isRunning}
                 onLanguageChange={handleLanguageChange}
                 onCodeChange={setCode}
-                onRunCOde={handleRunCode}/>
+                onRunCode={handleRunCode}/>
 
         </Panel>
 

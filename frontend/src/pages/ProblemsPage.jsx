@@ -35,7 +35,7 @@ function ProblemPage() {
         <div className='flex-1'>
           <div className='flex items-center gap-3 mb-2'>
             <div className='size-12 rounded-lg bg-primary/10 flex items-center justify-center'>
-            <Code2Icon className='size- text-primary'/>
+            <Code2Icon className='size-6 text-primary'/>
             </div>
             <div className='flex-1'>
               <div className='flex items-center gap-2 mb-1'>
