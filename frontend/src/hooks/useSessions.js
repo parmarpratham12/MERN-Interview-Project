@@ -1,5 +1,6 @@
 import { useMutation , useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import { sessionApi } from '../api/sessions.js';
 
 
 
@@ -27,7 +28,7 @@ export const useActiveSessions = () => {
 export const useMyRecentSessions = () => {
     const result = useQuery({
         queryKey:["myRecentSessions"],
-        queryFn: sessionApi.getActiveSessions,
+        queryFn: sessionApi.getMyRecentSession,
     });
     return result;
 };

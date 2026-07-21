@@ -1,5 +1,6 @@
 import { useUser } from '@clerk/clerk-react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 import React from 'react'
 
 
@@ -7,9 +8,9 @@ import React from 'react'
 
 
 function DashboardPage() {
-  const navigate = userNavigate()
+  const navigate = useNavigate()
   const {user} = useUser()
-  const [showCreatemodal,setShowCreateModal] = userState(false);
+  const [showCreatemodal,setShowCreateModal] = useState(false);
   const [roomconfig , setRoomConfig] = useState ({ problem: "", difficulty:""});
   // -1.56.51
 
