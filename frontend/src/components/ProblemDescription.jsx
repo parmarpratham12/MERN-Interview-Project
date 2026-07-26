@@ -1,6 +1,7 @@
 import React from 'react'
 import getDifficultyBadgeClass from '../lib/utils'
-function ProblrmDescription({problem,currentProblemId,onProblemChange,allProblem}) {
+
+function ProblemDescription({problem,currentProblemId,onProblemChange,allProblem}) {
   
   
   
@@ -95,4 +96,4 @@ function ProblrmDescription({problem,currentProblemId,onProblemChange,allProblem
   )
 }
 
-export default ProblrmDescription
+export default ProblemDescription

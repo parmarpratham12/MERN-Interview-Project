@@ -47,7 +47,8 @@ res.status(201).json({session})
 export async function getActiveSession(_,res){
     try {
        const sessions = await Session.find({status:"active"})
-       .populate("host","name profileImage email clerkId") // populate method can retrive host name from host id and this is a functionality of mongodb
+       .populate("host","name profileImage email clerkId")
+       .populate("participant","name profileImage email clerkId") // populate method can retrive host name from host id and this is a functionality of mongodb
        .sort({createdAt:-1})
        .limit(20);
 

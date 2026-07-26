@@ -6,7 +6,7 @@ import { ChevronRightIcon, Code2Icon } from 'lucide-react';
 import getDifficultyBadgeClass from "../lib/utils.js"
 
 
-function ProblemPage() {
+function ProblemsPage() {
   const problems = Object.values(PROBLEMS);
   const easyProblemsCount = problems.filter(p => p.difficulty === "Easy").length
   const mediumProblemsCount = problems.filter(p => p.difficulty === "Medium").length
@@ -20,7 +20,7 @@ function ProblemPage() {
   {/* HEADER  */}
   <div className='mb-8'>
 <h1 className='text-4xl font-bold mb-2'>Practice Problems</h1>
-<p className='text-base-content/70'> Sharpe your coding skills with these current problems</p>
+<p className='text-base-content/70'> Sharpen your coding skills with these current problems</p>
   </div>
 {/* PROBLEMS LIST */}
 <div className='space-y-4'>
@@ -89,4 +89,4 @@ function ProblemPage() {
   )
 }
 
-export default ProblemPage
+export default ProblemsPage

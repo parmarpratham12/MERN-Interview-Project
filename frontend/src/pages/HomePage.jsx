@@ -11,7 +11,7 @@ function HomePage() {
   return (
     <div className="bg-gradient-to-br from-base-100 via-base-200 to-base-300">
       {/* NAVBAR */}
-<nav className="bg-base-100/80 backdrop-blur-md border-b border-prinary/20 sticky top-0 z-50 shadow-lg">
+<nav className="bg-base-100/80 backdrop-blur-md border-b border-primary/20 sticky top-0 z-50 shadow-lg">
 
 <div className="max-w-7xl mx-auto p-4 flex items-center justify-between">
 
@@ -34,7 +34,7 @@ function HomePage() {
   {/* AUTH BTN */}
  
   <SignInButton mode="modal">
-    <button className="group px-3 py-3 bg-gradient-to-r from-primary to-secondary rounded-xl text-white front-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 flex items-center gap-2">
+    <button className="group px-3 py-3 bg-gradient-to-r from-primary to-secondary rounded-xl text-white font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 flex items-center gap-2">
       <span>
         Get Started
       </span>
@@ -62,7 +62,7 @@ function HomePage() {
 Code Together,
 </span>
 <br/>
-<span className="text-base-context">Learn Together</span>
+<span className="text-base-content">Learn Together</span>
 </h1>
       <p className="text-xl text-base-content/70 leading-relaxed max-w-xl">
               A modern platform for technical interviews, pair programming, and developer collaboration.
@@ -102,14 +102,18 @@ Code Together,
        </div>
        {/* STATS */}
 <div className="stats stats-vertical lg:stats-horizontal bg-base-100 shadow-lg">
-<div className="stat">
-  <div className="stat-value text-primary">10K</div>
-  <div className="stat-title">Active Users</div>
-  <div className="stat-value text-secondary">50K</div>
-  <div className="stat-title">Sessions</div>
-  <div className="stat-value text-accent">99.9%</div>
-  <div className="stat-title">Uptime</div>
-</div>
+  <div className="stat">
+    <div className="stat-value text-primary">10K</div>
+    <div className="stat-title">Active Users</div>
+  </div>
+  <div className="stat">
+    <div className="stat-value text-secondary">50K</div>
+    <div className="stat-title">Sessions</div>
+  </div>
+  <div className="stat">
+    <div className="stat-value text-accent">99.9%</div>
+    <div className="stat-title">Uptime</div>
+  </div>
 </div>
 
     </div>
@@ -117,7 +121,7 @@ Code Together,
     {/* RIGHT IMAGE */}
     <img src="/hero.png"
     alt="CodeCollab Platform"
-    className="w-full h-auto rounede-3xl shadow-2xl border-4 border-base-100 hover:scale-105 transition-trasform duration-500"/>
+    className="w-full h-auto rounded-3xl shadow-2xl border-4 border-base-100 hover:scale-105 transition-transform duration-500"/>
     </div>
   </div>
 
@@ -125,7 +129,7 @@ Code Together,
   <div className="max-w-7xl mx-auto px-4 py-20">
  <div className="text-center mb-16">
   <h2 className ="text-4xl font-bold mb-4">
-  Everything You Need To <span className="text-primary font-mono">Success</span>
+  Everything You Need To <span className="text-primary font-mono">Succeed</span>
   </h2>
 <p className="text-lg text-base-content/70 max-w-2xl mx-auto">
 Powerful features built for seamless coding interviews and developer collaboration.
@@ -176,7 +180,7 @@ Powerful features built for seamless coding interviews and developer collaborati
     
 
 <SignOutButton mode="modal">
-    <button className="group px-3 py-3 bg-gradient-to-r from-primary to-secondary rounded-xl text-white front-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 flex items-center gap-2">
+    <button className="group px-3 py-3 bg-gradient-to-r from-primary to-secondary rounded-xl text-white font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 flex items-center gap-2">
       <span>
         Get over
       </span>

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router'
 import { PROBLEMS } from '../data/problem.js';
 import { Panel , PanelGroup, PanelResizeHandle} from "react-resizable-panels";
 import Navbar from '../components/Navbar.jsx';
-import ProblrmDescription from '../components/ProblemDescription.jsx';
+import ProblemDescription from '../components/ProblemDescription.jsx';
 import CodeEditorPanel from "../components/CodeEditorPanel.jsx"
 import OutputPanel from '../components/OutputPanel.jsx';
 import { executeCode } from '../lib/piston.js';
@@ -123,7 +123,7 @@ if(result.success){
 
         <Panel defaultSize={40} minSize={30}>
 
-        <ProblrmDescription 
+        <ProblemDescription 
         problem={currentProblem}
         currentProblemId={currentProblemId}
         onProblemChange={handleProblemChange}

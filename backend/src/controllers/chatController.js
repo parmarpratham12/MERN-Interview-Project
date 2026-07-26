@@ -13,7 +13,7 @@ res.status(200).json({
 token,
 userId : req.user.clerkId,
 userName  : req.user.name,
-userImage : req.user.image
+userImage : req.user.profileImage
 
 
 
