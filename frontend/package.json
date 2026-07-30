@@ -13,6 +13,7 @@
     "@clerk/clerk-react": "^5.61.8",
     "@clerk/react": "^6.12.2",
     "@monaco-editor/react": "^4.7.0",
+    "@stream-io/video-react-sdk": "^1.24.0",
     "@tailwindcss/vite": "^4.1.14",
     "@tanstack/react-query": "^5.90.5",
     "axios": "^1.12.2",
@@ -25,6 +26,8 @@
     "react-resizable-panels": "^3.0.6",
     "react-router": "^7.9.4",
     "react-router-dom": "^7.18.1",
+    "stream-chat": "^9.23.0",
+    "stream-chat-react": "^13.9.0",
     "tailwindcss": "^4.1.14"
   },
   "devDependencies": {
