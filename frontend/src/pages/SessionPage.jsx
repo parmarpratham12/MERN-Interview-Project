@@ -1,5 +1,5 @@
 import { useUser } from '@clerk/clerk-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useEndSession, useJoinSession, useSessionById } from '../hooks/useSessions';
 import { PROBLEMS } from '../data/problem';
@@ -8,28 +8,30 @@ import Navbar from '../components/Navbar';
 import getDifficultyBadgeClass from '../lib/utils';
 import { Loader2Icon, LogOutIcon, PhoneOffIcon } from 'lucide-react';
 import OutputPanel from '../components/OutputPanel';
+import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
+import CodeEditorPanel from '../components/CodeEditorPanel'
 
 import useStreamClient from '../hooks/useStreamClient.js';
-import { StreamCall , StreamVideo} from '@stream-io/video-react-sdk'
+import { StreamCall, StreamVideo } from '@stream-io/video-react-sdk'
 import VideoCallUI from '../components/VideoCallUI.jsx';
 
 function SessionPage() {
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const { id } = useParams();
   const { user } = useUser();
   const [output, setOutput] = useState(null);
   const [isRunning, setIsRunning] = useState(false);
 
-  const {data:sessionData, isLoading:loadingSession, refetch} = useSessionById(id)
+  const { data: sessionData, isLoading: loadingSession, refetch } = useSessionById(id)
   const joinSessionMutation = useJoinSession();
   const endSessionMutation = useEndSession();
 
   const session = sessionData?.session;
   const isHost = session?.host?.clerkId === user?.id;
   const isParticipant = session?.participant?.clerkId === user?.id;
-  
-   const { call, channel, chatClient, isInitializingCall, streamClient } = useStreamClient(
+
+  const { call, channel, chatClient, isInitializingCall, streamClient } = useStreamClient(
     session,
     loadingSession,
     isHost,
@@ -46,20 +48,20 @@ const navigate = useNavigate();
   const [code, setCode] = useState(problemData?.starterCode?.[selectedLanguage] || "");
 
   // auto-join session if user is not already a participant and not the host
-   useEffect(() => {
+  useEffect(() => {
     if (!session || !user || loadingSession) return;
     if (isHost || isParticipant) return;
 
     joinSessionMutation.mutate(id, { onSuccess: refetch });
-    },[session, user, loadingSession, isHost, isParticipant, id ]);
-   // redirect the "participant" when session ends
+  }, [session, user, loadingSession, isHost, isParticipant, id]);
+  // redirect the "participant" when session ends
   useEffect(() => {
     if (!session || loadingSession) return;
 
     if (session.status === "completed") navigate("/dashboard");
   }, [session, loadingSession, navigate]);
 
-    // update code when problem loads or changes
+  // update code when problem loads or changes
   useEffect(() => {
     if (problemData?.starterCode?.[selectedLanguage]) {
       setCode(problemData.starterCode[selectedLanguage]);
@@ -67,7 +69,7 @@ const navigate = useNavigate();
   }, [problemData, selectedLanguage]);
 
 
-   const handleLanguageChange = (e) => {
+  const handleLanguageChange = (e) => {
     const newLang = e.target.value;
     setSelectedLanguage(newLang);
     // use problem-specific starter code
@@ -75,7 +77,7 @@ const navigate = useNavigate();
     setCode(starterCode);
     setOutput(null);
   };
-    const handleRunCode = async () => {
+  const handleRunCode = async () => {
     setIsRunning(true);
     setOutput(null);
 
@@ -91,12 +93,12 @@ const navigate = useNavigate();
     }
   };
 
-   
+
   return (
     <div className='h-screen bg-base-100 flex flex-col'>
       <Navbar />
       <div className='flex-1'>
-        <panelGroup direction="horizontal">
+        <PanelGroup direction="horizontal">
           {/* LEFT PANEL - CODE EDITOR & PROBLEM DETAILS  */}
           <Panel defaultSize={50} minSize={30}>
             <PanelGroup direction="vertical">
@@ -249,12 +251,10 @@ const navigate = useNavigate();
           </Panel>
 
           <PanelResizeHandle className="w-2 bg-base-300 hover:bg-primary transition-colors cursor-col-resize" />
-          <PanelResizeHandle
-          className='w-2 bg-base-300 hover:bg-primary transition-colors cursor-col-resize' />
           {/* RIGHT PANEL - VDEO CALL AND CHAT */}
           <Panel defaultSize={50} minSize={30}>
-            
-              <div className="h-full bg-base-200 p-4 overflow-auto">
+
+            <div className="h-full bg-base-200 p-4 overflow-auto">
               {isInitializingCall ? (
                 <div className="h-full flex items-center justify-center">
                   <div className="text-center">
@@ -287,7 +287,7 @@ const navigate = useNavigate();
 
           </Panel>
 
-        </panelGroup>
+        </PanelGroup>
       </div>
 
 
