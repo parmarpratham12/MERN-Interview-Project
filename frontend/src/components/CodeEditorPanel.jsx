@@ -14,7 +14,7 @@ function CodeEditorPanel({
   return (
     <div className='h-full bg-base-300 flex flex-col'>
         <div className='flex items-center justify-between px-4 py-3 bg-base-100 border-t border-base-300'>
-            <div className='flex item-center gap-3'>
+            <div className='flex items-center gap-3'>
                 <img
                 src={LANGUAGE_CONFIG[selectedLanguage].icon} 
                 alt={LANGUAGE_CONFIG[selectedLanguage].name}
