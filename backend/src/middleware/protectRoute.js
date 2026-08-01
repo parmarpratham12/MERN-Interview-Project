@@ -34,7 +34,8 @@ import User from '../models/User.js'
 export const protectRoute = async (req, res, next) => {
   try {
     // 1. Clerk's global clerkMiddleware() has already verified the JWT and populated req.auth
-    const clerkId = req.auth.userId;
+    const auth = typeof req.auth === "function" ? req.auth() : req.auth;
+    const clerkId = auth?.userId;
 
     // 2. If the user is unauthenticated, return a clean JSON 401 response (No Redirection!)
     if (!clerkId) {

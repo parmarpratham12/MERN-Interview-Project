@@ -21,6 +21,18 @@ app.use(express.json());
 
 // credentials:true means server allows a browser to include cookies on req
 app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
+
+// Connect to database on every request (crucial for serverless functions like Vercel)
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error("Database connection middleware error:", error);
+    res.status(500).json({ message: "Internal server error - database connection failed" });
+  }
+});
+
 app.use(clerkMiddleware()); // this adds auth field to request object : req.auth()
 
 app.use("/api/inngest",serve({client:inngest , functions }));
