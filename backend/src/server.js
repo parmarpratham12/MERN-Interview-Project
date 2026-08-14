@@ -20,7 +20,15 @@ const __dirname = path.dirname(__filename);
 app.use(express.json());
 
 // credentials:true means server allows a browser to include cookies on req
-app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
+// app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
+
+app.use(
+  cors({
+    origin: ENV.CLIENT_URL || "http://localhost:5173",
+    credentials: true,
+    allowedHeaders: ["Authorization", "Content-Type"],
+  })
+);
 
 // Connect to database on every request (crucial for serverless functions like Vercel)
 app.use(async (req, res, next) => {

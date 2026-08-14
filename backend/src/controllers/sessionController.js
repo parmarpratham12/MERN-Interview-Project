@@ -148,30 +148,48 @@ export async function endSession(req, res) {
 
         // check if user is host
         if (session.host.toString() !== userId.toString())
-            return res.status(403).json({ message: "only host can end the session" })
+            return res.status(403).json({ message: "only host can end the session" });
+
         // check if session is already completed
         if (session.status === "completed") {
             return res.status(400).json({ message: "session is already completed" });
         }
 
 
-        // delete steam video call
-        const call = streamClient.video.call("default", session.callId)
-        await call.delete({ hard: true })
+//         // delete steam video call
+//         const call = streamClient.video.call("default", session.callId)
+//         await call.delete({ hard: true })
 
-        //delete stream chat channel
-        const channel = chatClient.channel("messaging", session.callId)
-        await channel.delete();
+//         //delete stream chat channel
+//         const channel = chatClient.channel("messaging", session.callId)
+//         await channel.delete();
+
+//         session.status = "completed";
+//         await session.save();
+
+
+
+//         res.status(200).json({ session, message: " Session is ended successfully" })
+
+//     } catch (error) {
+
+//         console.log("Error in endSession controller", error.message);
+//         res.status(500).json({ message: "Internal Server Error" });
+//     }
+        try {
+            const call = streamClient.video.call("default", session.callId);
+            await call.delete({ hard: true });
+            const channel = chatClient.channel("messaging", session.callId);
+            await channel.delete();
+        } catch (streamErr) {
+            console.warn("Stream cleanup warning:", streamErr.message);
+        }
 
         session.status = "completed";
         await session.save();
 
-
-
-        res.status(200).json({ session, message: " Session is ended successfully" })
-
+        res.status(200).json({ session, message: "Session ended successfully" });
     } catch (error) {
-
         console.log("Error in endSession controller", error.message);
         res.status(500).json({ message: "Internal Server Error" });
     }

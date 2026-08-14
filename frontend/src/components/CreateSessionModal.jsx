@@ -33,11 +33,13 @@ function CreateSessionModal({
                     <select className='select w-full'
                      value={roomConfig.problem}
                      onChange={(e) => {
-                        const selectedProblem = problems.find(p => p.title === e.target.value)
-                        setRoomConfig({
-                            difficulty: selectedProblem.difficulty,
-                            problem: e.target.value,
-                        });
+  const selectedProblem = problems.find((p) => p.title === e.target.value);
+  if (selectedProblem) {
+    setRoomConfig({
+      difficulty: selectedProblem.difficulty,
+      problem: e.target.value,
+    });
+}
                      }}
                     >
                         <option value="" disabled>

@@ -127,8 +127,9 @@ function SessionPage() {
                             session?.difficulty
                           )}`}
                         >
-                          {session?.difficulty.slice(0, 1).toUpperCase() +
-                            session?.difficulty.slice(1) || "Easy"}
+                          {session?.difficulty
+                            ? session.difficulty.charAt(0).toUpperCase() + session.difficulty.slice(1)
+                            : "Easy"}
                         </span>
                         {isHost && session?.status === "active" && (
                           <button

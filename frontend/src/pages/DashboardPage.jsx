@@ -46,7 +46,7 @@ const activeSessions = activeSessionsData?.sessions || [];
 const recentSessions = recentSessionsData?.sessions || [];
 
 const isUserInSession = (session) => {
-if(!user.id) return false ;
+if(!user?.id) return false;
 
 return session.host?.clerkId === user.id || session.participant?.clerkId === user.id
 
