@@ -29,7 +29,9 @@
 
 
 // ];
-import User from '../models/User.js'
+import { clerkClient } from '@clerk/express';
+import User from '../models/User.js';
+import { upsertStreamUser } from '../lib/stream.js';
 
 export const protectRoute = async (req, res, next) => {
   try {
@@ -43,11 +45,32 @@ export const protectRoute = async (req, res, next) => {
     }
 
     // 3. Find the user in the MongoDB database
-    const user = await User.findOne({ clerkId });
+    let user = await User.findOne({ clerkId });
 
-    // 4. If user doesn't exist in our DB, return a 404
+    // 4. If user doesn't exist in our DB, auto-sync them from Clerk
     if (!user) {
-      return res.status(404).json({ msg: "User not Found" });
+      try {
+        console.log(`User ${clerkId} not found in DB. Auto-syncing from Clerk...`);
+        const clerkUser = await clerkClient.users.getUser(clerkId);
+        
+        user = await User.create({
+          clerkId,
+          email: clerkUser.emailAddresses[0]?.emailAddress || "",
+          name: `${clerkUser.firstName || ""} ${clerkUser.lastName || ""}`.trim() || "Anonymous",
+          profileImage: clerkUser.imageUrl || ""
+        });
+        
+        console.log(`User ${user.name} auto-created in MongoDB.`);
+
+        await upsertStreamUser({
+          id: clerkId,
+          name: user.name,
+          image: user.profileImage
+        });
+      } catch (syncError) {
+        console.error("Failed to auto-sync user from Clerk:", syncError);
+        return res.status(404).json({ msg: "User not Found" });
+      }
     }
 
     // 5. Attach the MongoDB document to req.user and call next() to pass execution to the controller
